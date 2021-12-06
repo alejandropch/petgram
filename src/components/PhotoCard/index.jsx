@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { Context } from '../../context/Context'
 import { Article, ImgWrapper, Img } from './styles.js'
 import { useNearScreen } from '../../hooks/useNearScreen'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
@@ -9,6 +10,7 @@ import { Link } from 'react-router-dom'
 const DEFAULT_IMAGE = 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60'
 
 export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
+  const { isAuth } = useContext(Context)
   const [show, element] = useNearScreen()
   const key = `like-${id}`
   const [liked, setLiked] = useLocalStorage(key, false)
@@ -34,7 +36,7 @@ export const PhotoCard = ({ id, likes = 0, src = DEFAULT_IMAGE }) => {
                 <Img src={src} />
               </ImgWrapper>
             </Link>
-            <FavButton likes={likes} liked={liked} onClick={handleLikeClick} />
+            <FavButton likes={likes} liked={liked} onClick={isAuth ? handleLikeClick : null} />
           </>
 
       }

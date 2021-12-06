@@ -9,10 +9,10 @@ import { NavBar } from './components/NavBar'
 import { Favs } from './pages/Favs'
 import { Profile } from './pages/Profile'
 import { NotRegisteredUser } from './pages/NotRegisteredUser'
+import { Context } from './context/Context'
 
 export const App = () => {
   const IsUserLogged = ({ children }) => {
-    console.dir(typeof (children))
     return children({ isAuth: true })
   }
 
@@ -28,27 +28,22 @@ export const App = () => {
               <Route exact path='/detail/:detailid' element={<Detail />} />
            </Routes>
 
-           <IsUserLogged>
+           <Context.Consumer>
              {
                ({ isAuth }) =>
                  isAuth
                    ? <Routes>
-
-                <Route exact path='/favs' element={<Favs />} />
-                <Route exact path='/profile' element={<Profile />} />
+                        <Route exact path='/favs' element={<Favs />} />
+                        <Route exact path='/profile' element={<Profile />} />
                      </Routes>
                    : <Routes>
-
-                <Route exact path='/favs' element={<NotRegisteredUser />} />
-                <Route exact path='/profile' element={<NotRegisteredUser />} />
+                        <Route exact path='/favs' element={<NotRegisteredUser />} />
+                        <Route exact path='/profile' element={<NotRegisteredUser />} />
                      </Routes>
              }
-
-           </IsUserLogged>
+           </Context.Consumer>
            <NavBar />
-
       </BrowserRouter>
-
     </>
   )
 }
