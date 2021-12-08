@@ -17,7 +17,9 @@ margin: 10px 0;
 min-width:220px;
 width:40%;
 :focus{outline:none;}
-
+&[disabled]{
+    opacity:0.5;
+}
 `
 export const Button = styled.button`
 background: #8d00ff;
@@ -26,11 +28,23 @@ color:#fff;
 height:32px;
 display:block;
 width:70%;
-min-width:220px
+min-width:220px;
+&[disabled]{
+    opacity:0.5;
+}
 `
 export const Title = styled.h2`
 font-size:16px;
 font-weight:500;
 padding:8px 0px;
 text-align:center;
+`
+export const Error = styled.span`
+font-size:14px;
+color:red;
+`
+export const MessageContainer = styled.div`
+display:flex;
+justify-content: center;
+
 `

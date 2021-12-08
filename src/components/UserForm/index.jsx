@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import React, { useRef } from 'react'
-import { Form, Input, Button, Title } from './styles'
-export const UserForm = ({ error, loading, onSubmit, title }) => {
+import { Form, Input, Button, Title, Error, MessageContainer } from './styles'
+export const UserForm = ({ type, error, disabled, onSubmit, title }) => {
   const form = useRef(null)
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -11,19 +11,26 @@ export const UserForm = ({ error, loading, onSubmit, title }) => {
     const { email, password } = formEntries
     onSubmit({ email, password })
   }
+  let message = ''
+  if (error) {
+    ({ message } = error)
+  }
 
   return (
     <>
-      <Title>{title}</Title>
-      <Form ref={form} onSubmit={handleSubmit}>
+      <Form ref={form} onSubmit={handleSubmit} disabled={disabled}>
+        <Title>{title}</Title>
 
-        <Input type='text' name='email' placeholder='Email' />
-        <Input type='password' name='password' placeholder='Password' />
-        <Button>{title}</Button>
+        <Input type='text' name='email' placeholder='Email' disabled={disabled} />
+        <Input type='password' name='password' autocomplete={type === 'signin' ? 'current-password' : 'new-password'} placeholder='Password' disabled={disabled} />
+        <Button disabled={disabled}>{title}</Button>
 
       </Form>
-      {loading}
-      {error}
+      <MessageContainer>
+
+        <Error>{message}</Error>
+      </MessageContainer>
+
     </>
   )
 }

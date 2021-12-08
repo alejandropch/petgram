@@ -1,25 +1,45 @@
 import React, { useContext } from 'react'
 import { useRegisterMutation } from '../container/RegisterMutation'
+import { useLoginMutation } from '../container/LoginMutation'
 import { Context } from '../context/Context'
 import { UserForm } from '../components/UserForm'
 
 export const NotRegisteredUser = () => {
   const { aproveAuth } = useContext(Context)
   const { registerMutation, loading } = useRegisterMutation()
-  const msgError = loading.error && 'Something terrible has happened'
-  const msgLoading = loading.loading && 'Loading dude'
+  const { loginMutation, loadingLogin } = useLoginMutation()
 
-  const onSubmit = ({ email, password }) => {
+  const isLoading = loading.loading
+  const isLoadingLogin = loadingLogin.loading
+
+  const onSubmitSignUp = ({ email, password }) => {
     const input = { email, password }
 
     const variables = { input }
     registerMutation({ variables })
-      .then(aproveAuth)
+      .then(({ data }) => {
+        const { signup } = data
+        console.log(signup)
+
+        aproveAuth(signup)
+      })
+  }
+
+  const onSubmitSignIn = ({ email, password }) => {
+    const input = { email, password }
+
+    const variables = { input }
+    loginMutation({ variables })
+      .then(({ data }) => {
+        const { login } = data
+        aproveAuth(login)
+      }
+      )
   }
   return (
     <>
-      <UserForm error={msgError} loading={msgLoading} onSubmit={onSubmit} title='Registrate' />
-      <UserForm aproveAuth={aproveAuth} title='Sign in' />
+      <UserForm type='signup' error={loading.error} disabled={isLoading} onSubmit={onSubmitSignUp} title='Registrate' />
+      <UserForm type='signin' error={loadingLogin.error} disabled={isLoadingLogin} onSubmit={onSubmitSignIn} title='Sign in' />
     </>
   )
 }
