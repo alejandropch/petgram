@@ -1,12 +1,17 @@
-import React, { PureComponent } from 'react'
-import { PhotoCard } from '../PhotoCard'
+import React from 'react'
+import { Grid, Image, Link } from './styles'
 
-export const ListOfFavs = ({ list }) => {
+export const ListOfFavs = ({ list = [] }) => {
   return (
-    list.map(item => (
-      <PhotoCard key={item} {...item} />
-    )
+    <Grid>
+      {
+        list.map(item => (
+          <Link key={item.id} to={`/detail/${item.id}`}>
+            <Image src={item.src} />
+          </Link>
+        ))
+      }
+    </Grid>
 
-    )
   )
 }

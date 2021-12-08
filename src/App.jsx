@@ -12,10 +12,6 @@ import { NotRegisteredUser } from './pages/NotRegisteredUser'
 import { Context } from './context/Context'
 
 export const App = () => {
-  const IsUserLogged = ({ children }) => {
-    return children({ isAuth: true })
-  }
-
   return (
     <>
       <BrowserRouter>
@@ -31,15 +27,11 @@ export const App = () => {
            <Context.Consumer>
              {
                ({ isAuth }) =>
-                 isAuth
-                   ? <Routes>
-                        <Route exact path='/favs' element={<Favs />} />
-                        <Route exact path='/profile' element={<Profile />} />
-                     </Routes>
-                   : <Routes>
-                        <Route exact path='/favs' element={<NotRegisteredUser />} />
-                        <Route exact path='/profile' element={<NotRegisteredUser />} />
-                     </Routes>
+                 <Routes>
+                  <Route exact path='/favs' element={isAuth ? <Favs /> : <NotRegisteredUser />} />
+                  <Route exact path='/profile' element={isAuth ? <Profile /> : <NotRegisteredUser />} />
+                 </Routes>
+
              }
            </Context.Consumer>
            <NavBar />

@@ -2,7 +2,11 @@ import React from 'react'
 import { Context } from '../context/Context'
 import { App as AppComponent } from '../App'
 import { useAuth } from '../hooks/useAuth'
-import { ApolloClient, ApolloProvider, InMemoryCache, createHttpLink } from '@apollo/client'
+import {
+  ApolloClient, ApolloProvider, InMemoryCache, createHttpLink,
+  from
+} from '@apollo/client'
+import { onError } from '@apollo/client/link/error'
 import { setContext } from '@apollo/client/link/context'
 
 const httpLink = createHttpLink({
@@ -17,17 +21,22 @@ const autorizeUser = setContext((_, { headers }) => {
     }
   }
 })
+const errorOnMiddle = onError(
+
+  ({ networkError }) => {
+    if (networkError && networkError.result.code === 'invalid_token') {
+      console.log('session expired')
+      window.sessionStorage.removeItem('token')
+      window.location = '/profile'
+    }
+  }
+
+)
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  link: autorizeUser.concat(httpLink),
-  onError: error => {
-    const { networkError } = error
-    if (networkError && networkError.result.code === 'invalid_token') {
-      window.sessionStorage.removeItem('token')
-      window.location.href = '/profile'
-    }
-  }
+  link: from([autorizeUser.concat(httpLink),
+    errorOnMiddle])
 
 })
 export const App = () => {
