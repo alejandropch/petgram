@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useQuery, gql } from '@apollo/client'
 import { ListOfFavs } from '../components/ListOfFavs'
-
+import { Layout } from '../components/Layout'
 const GET_FAVS_PHOTO = gql`
 query getFavs {
     favs {
@@ -13,6 +13,7 @@ query getFavs {
     }
   }
 `
+
 export const Favs = () => {
   const { loading, error, data, refetch } = useQuery(GET_FAVS_PHOTO)
   useEffect(() => refetch(), [])
@@ -21,9 +22,9 @@ export const Favs = () => {
   const { favs } = data
 
   return (
-    <>
-      <h1>Estas son las fotos añadidas a fav</h1>
+    <Layout title='Favorities' subtitle='Your petgram favorities photos'>
+
       <ListOfFavs list={favs} />
-    </>
+    </Layout>
   )
 }

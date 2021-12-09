@@ -1,6 +1,7 @@
 /* eslint-disable no-undef */
 import React, { useRef } from 'react'
-import { Form, Input, Button, Title, Error, MessageContainer } from './styles'
+import { Form, Input, Title, Error, MessageContainer } from './styles'
+import { Button } from '../SubmitButton'
 export const UserForm = ({ type, error, disabled, onSubmit, title }) => {
   const form = useRef(null)
   const handleSubmit = (event) => {

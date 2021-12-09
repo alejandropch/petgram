@@ -1,4 +1,5 @@
 import React, { useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useRegisterMutation } from '../container/RegisterMutation'
 import { useLoginMutation } from '../container/LoginMutation'
 import { Context } from '../context/Context'
@@ -8,7 +9,7 @@ export const NotRegisteredUser = () => {
   const { aproveAuth } = useContext(Context)
   const { registerMutation, loading } = useRegisterMutation()
   const { loginMutation, loadingLogin } = useLoginMutation()
-
+  const navigate = useNavigate()
   const isLoading = loading.loading
   const isLoadingLogin = loadingLogin.loading
 
@@ -20,6 +21,7 @@ export const NotRegisteredUser = () => {
       .then(({ data }) => {
         const { signup } = data
         console.log(signup)
+        navigate('/')
 
         aproveAuth(signup)
       })
@@ -32,6 +34,8 @@ export const NotRegisteredUser = () => {
     loginMutation({ variables })
       .then(({ data }) => {
         const { login } = data
+        navigate('/')
+
         aproveAuth(login)
       }
       )
