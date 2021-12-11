@@ -6,7 +6,8 @@
         "build": "webpack --mode development",
         "lint": "standard --fix",
         "dev": "webpack serve --mode development",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "serve:dev": "webpack --mode 'development' && npx serve dist -s",
+        "test": "cypress open"
     },
     "keywords": [],
     "author": "alejandro <alejandropachas1@gmail.com>",
@@ -17,11 +18,14 @@
         "@babel/preset-env": "^7.16.4",
         "@babel/preset-react": "^7.16.0",
         "babel-loader": "^8.2.3",
+        "cypress": "^9.1.1",
         "html-webpack-plugin": "^5.5.0",
         "standard": "^16.0.4",
         "webpack": "^5.64.1",
         "webpack-cli": "^4.9.1",
-        "webpack-dev-server": "^4.5.0"
+        "webpack-dev-server": "^4.5.0",
+        "webpack-pwa-manifest": "^4.3.0",
+        "workbox-webpack-plugin": "^6.4.2"
     },
     "dependencies": {
         "@apollo/client": "^3.5.5",

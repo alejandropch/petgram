@@ -5,14 +5,14 @@ import { Helmet } from 'react-helmet'
 import { ListOfCategories } from '../components/ListOfCategories'
 import { ListOfPhotoCards } from '../components/ListOfPhotoCards'
 
-export const Home = () => {
+const HomePage = () => {
   const params = useParams()
   return (
     <>
 
       <Helmet>
         <title>Feed | Petgram &#128062;</title>
-        <meta name='description' content='In petgram you can many cute animal photos' />
+        <meta name='description' content='In petgram you will see many cute animal photos' />
       </Helmet>
       <ListOfCategories />
       <ListOfPhotoCards categoryId={params.id} />
@@ -20,3 +20,4 @@ export const Home = () => {
 
   )
 }
+export const Home = React.memo(HomePage)

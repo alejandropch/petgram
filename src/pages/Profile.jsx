@@ -5,7 +5,7 @@ import { Layout } from '../components/Layout'
 import { Button } from '../components/SubmitButton'
 import { useApolloClient } from '@apollo/client'
 
-export const Profile = () => {
+export default () => {
   const { logOut } = useContext(Context)
   const client = useApolloClient()
 

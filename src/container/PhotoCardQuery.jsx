@@ -25,7 +25,9 @@ export function PhotoCardQuery ({ id }) {
   if (error) return <h2>Server error, we are fixing it:)</h2>
 
   return (
+    <>
 
-    <PhotoCard {...data.photo} />
+      <PhotoCard {...data.photo} />
+    </>
   )
 }

@@ -5,7 +5,7 @@ import { useLoginMutation } from '../container/LoginMutation'
 import { Context } from '../context/Context'
 import { UserForm } from '../components/UserForm'
 
-export const NotRegisteredUser = () => {
+export default () => {
   const { aproveAuth } = useContext(Context)
   const { registerMutation, loading } = useRegisterMutation()
   const { loginMutation, loadingLogin } = useLoginMutation()
@@ -42,7 +42,7 @@ export const NotRegisteredUser = () => {
   }
   return (
     <>
-      <UserForm type='signup' error={loading.error} disabled={isLoading} onSubmit={onSubmitSignUp} title='Registrate' />
+      <UserForm type='signup' error={loading.error} disabled={isLoading} onSubmit={onSubmitSignUp} title='Sign up' />
       <UserForm type='signin' error={loadingLogin.error} disabled={isLoadingLogin} onSubmit={onSubmitSignIn} title='Sign in' />
     </>
   )

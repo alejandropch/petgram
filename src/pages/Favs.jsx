@@ -14,7 +14,7 @@ query getFavs {
   }
 `
 
-export const Favs = () => {
+export default () => {
   const { loading, error, data, refetch } = useQuery(GET_FAVS_PHOTO)
   useEffect(() => refetch(), [])
   if (loading) return <h2>Loading...</h2>

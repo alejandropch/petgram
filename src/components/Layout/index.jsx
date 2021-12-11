@@ -14,7 +14,6 @@ export const Layout = ({ title, subtitle, children }) => {
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
 
         {children}
-
       </Div>
     </>
   )
