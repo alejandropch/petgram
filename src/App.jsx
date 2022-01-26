@@ -24,10 +24,9 @@ export const App = () => {
       <BrowserRouter>
         <GlobalStyle />
         <Logo />
-        {console.log(isAuth)}
            <Routes>
               <Route exact path='/' element={<Home />} />
-              <Route path='/pet/:id' element={<Home />} />
+              <Route path='/pet/[id].js' element={<Home />} />
               <Route path='/detail/:detailid' element={<Detail />} />
 
               <Route exact path='/favs' element={!isAuth ? <Navigate noThrow replace to='/profile' /> : <Favs />} />

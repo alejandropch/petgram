@@ -38,6 +38,7 @@ const ListOfCategoriesComponent = () => {
   return (
     <>
       {renderList()}
+
       {showFixed && renderList(true)}
 
     </>
